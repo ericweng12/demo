@@ -1,0 +1,199 @@
+<!-- index.html -->
+<!DOCTYPE html>
+<html lang="zh-Hant">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>資產管理首頁</title>
+</head>
+<body>
+  <h1>資產管理系統</h1>
+  <ul>
+    <li><a href="asset.html">硬體資產管理</a></li>
+    <li><a href="software.html">軟體資產管理</a></li>
+    <li><a href="assignment_hw.html">硬體資產分配</a></li>
+    <li><a href="assignment_sw.html">軟體資產分配</a></li>
+  </ul>
+</body>
+</html>
+
+<!-- asset.html -->
+<!DOCTYPE html>
+<html lang="zh-Hant">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>硬體資產管理</title>
+  <style>
+    body { font-family: Arial, sans-serif; padding: 20px; }
+    input, select, textarea { width: 100%; padding: 8px; margin: 5px 0; }
+    .form-section { border: 1px solid #ddd; padding: 20px; }
+  </style>
+</head>
+<body>
+  <h2>新增/編輯硬體資產</h2>
+  <form id="assetForm">
+    <label>資產名稱</label><input type="text" name="name" required>
+    <label>資產編號</label><input type="text" name="assetCode" required>
+    <label>主類別</label>
+    <select name="mainCategory" id="mainCategory">
+      <option value="">請選擇</option>
+      <option value="硬體類">硬體類</option
+      <option value="軟體類">軟體類</option>
+    </select>
+    <label>次類別</label>
+    <select name="subCategory" id="subCategory">
+      <option value="">請先選擇主類別</option>
+    </select>
+    <script>
+      const mainCategorySelect = document.getElementById('mainCategory');
+      const subCategorySelect = document.getElementById('subCategory');
+
+      const options = {
+        "硬體類": ["個人電腦", "筆記型電腦"],
+        "軟體類": ["作業系統"]
+      };
+
+      mainCategorySelect.addEventListener('change', function () {
+        const selected = this.value;
+        const subOptions = options[selected] || [];
+
+        subCategorySelect.innerHTML = '';
+        subOptions.forEach(item => {
+          const opt = document.createElement('option');
+          opt.value = item;
+          opt.textContent = item;
+          subCategorySelect.appendChild(opt);
+        });
+      });
+    </script>
+    <label>購買日期</label><input type="date" name="purchaseDate">
+    <label>報廢日期</label><input type="date" name="disposalDate">
+    <label>資產說明</label><textarea name="description"></textarea>
+    <label>備註</label><textarea name="remark"></textarea>
+    <label>存放地點</label>
+    <select name="location">
+      <option value="辦公室">辦公室</option>
+      <option value="機房">機房</option>
+    </select>
+    <label>機密性</label><input type="number" name="confidentiality" min="1" max="5">
+    <label>完整性</label><input type="number" name="integrity" min="1" max="5">
+    <label>狀態</label>
+    <select name="status">
+      <option value="可用">可用</option>
+      <option value="報廢">報廢</option>
+      <option value="使用中">使用中</option>
+    </select>
+    
+    <button type="submit">儲存資產</button>
+  </form>
+</body>
+</html>
+
+<!-- software.html -->
+<!DOCTYPE html>
+<html lang="zh-Hant">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>軟體資產管理</title>
+  <style>
+    body { font-family: Arial, sans-serif; padding: 20px; }
+    input, textarea { width: 100%; padding: 8px; margin: 5px 0; }
+    .form-section { border: 1px solid #ddd; padding: 20px; }
+  </style>
+</head>
+<body>
+  <h2>新增/編輯軟體資產</h2>
+  <form id="softwareForm">
+    <label>資產名稱</label><input type="text" name="name" required>
+    <label>描述</label><textarea name="description"></textarea>
+    <label>數量</label><input type="number" name="quantity">
+    
+    <label>軟體分配類別</label>
+    <select name="assignmentType">
+      <option value="所有人">所有人</option>
+      <option value="個人">個人</option>
+    </select>
+    <label>管理者</label>
+    <select name="admin">
+      <option value="Eric">Eric</option>
+      <option value="randolph">randolph</option>
+    </select>
+    <button type="submit">儲存軟體資產</button>
+  </form>
+</body>
+</html>
+
+<!-- assignment_hw.html -->
+<!DOCTYPE html>
+<html lang="zh-Hant">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>硬體資產分配</title>
+  <style>
+    body { font-family: Arial, sans-serif; padding: 20px; }
+    input, textarea { width: 100%; padding: 8px; margin: 5px 0; }
+    .form-section { border: 1px solid #ddd; padding: 20px; }
+  </style>
+</head>
+<body>
+  <h2>硬體資產分配</h2>
+  <form id="assignmentFormHW">
+    <label>資產名稱</label>
+    <select name="assetId" required>
+      <option value="PC-14-001">PC-14-001</option>
+      <option value="PC-15-001">PC-15-001</option>
+    </select>
+    <label>使用者 ID</label>
+    <select name="userId" required>
+      <option value="Eric">Eric</option>
+      <option value="Willson">Willson</option>
+      <option value="Lily">Lily</option>
+    </select>
+    <label>分配日期</label><input type="date" name="assignmentDate">
+    <label>歸還日期</label><input type="date" name="returnDate">
+    <label>分配說明</label><textarea name="assignmentNote"></textarea>
+    <label>歸還說明</label><textarea name="returnNote"></textarea>
+    <button type="submit">儲存分配紀錄</button>
+  </form>
+</body>
+</html>
+
+<!-- assignment_sw.html -->
+<!DOCTYPE html>
+<html lang="zh-Hant">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>軟體資產分配</title>
+  <style>
+    body { font-family: Arial, sans-serif; padding: 20px; }
+    input, textarea { width: 100%; padding: 8px; margin: 5px 0; }
+    .form-section { border: 1px solid #ddd; padding: 20px; }
+  </style>
+</head>
+<body>
+  <h2>軟體資產分配</h2>
+  <form id="assignmentFormSW">
+    <label>資產名稱</label>
+    <select name="assetId" required>
+      <option value="Axure">Axure</option>
+      <option value="NAS">NAS</option>
+      <option value="Adobe">Adobe</option>
+    </select>
+    <label>使用者 ID</label>
+    <select name="userId" required>
+      <option value="Eric">Eric</option>
+      <option value="Willson">Willson</option>
+      <option value="Lily">Lily</option>
+    </select>
+    <label>分配日期</label><input type="date" name="assignmentDate">
+    <label>歸還日期</label><input type="date" name="returnDate">
+    <label>分配說明</label><textarea name="assignmentNote"></textarea>
+    <label>歸還說明</label><textarea name="returnNote"></textarea>
+    <button type="submit">儲存分配紀錄</button>
+  </form>
+</body>
+</html>
