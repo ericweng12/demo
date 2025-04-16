@@ -3,6 +3,64 @@
 <html lang="zh-Hant">
 <head>
   <meta charset="UTF-8">
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+  <style>
+    body {
+      font-family: 'Helvetica Neue', Helvetica, Arial, sans-serif;
+      background: linear-gradient(120deg, #fdfbfb 0%, #ebedee 100%);
+      color: #333;
+      padding: 2rem;
+    }
+    h1, h2 {
+      color: #2c3e50;
+      font-weight: 600;
+    }
+    form {
+      background-color: #fff;
+      padding: 2rem;
+      border-radius: 8px;
+      box-shadow: 0 4px 12px rgba(0,0,0,0.1);
+      max-width: 700px;
+      margin: auto;
+    }
+    label {
+      display: block;
+      margin-top: 1rem;
+      margin-bottom: .5rem;
+      font-weight: 500;
+    }
+    input, select, textarea {
+      width: 100%;
+      padding: .75rem;
+      border: 1px solid #ccc;
+      border-radius: 4px;
+      transition: border-color 0.3s ease;
+    }
+    input:focus, select:focus, textarea:focus {
+      border-color: #3498db;
+      outline: none;
+    }
+    button {
+      margin-top: 1.5rem;
+      padding: .75rem 2rem;
+      background-color: #3498db;
+      color: #fff;
+      border: none;
+      border-radius: 4px;
+      cursor: pointer;
+      font-size: 1rem;
+    }
+    button:hover {
+      background-color: #2980b9;
+    }
+    a {
+      color: #3498db;
+      text-decoration: none;
+    }
+    a:hover {
+      text-decoration: underline;
+    }
+  </style>
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>資產管理首頁</title>
 </head>
@@ -11,11 +69,117 @@
   <ul>
     <li><a href="asset.html">硬體資產管理</a></li>
     <li><a href="software.html">軟體資產管理</a></li>
-    <li><a href="assignment_hw.html">硬體資產分配</a></li>
-    <li><a href="assignment_sw.html">軟體資產分配</a></li>
-  </ul>
+    
+    <li><a href="recognition.html">認列</a></li>
+
+</body>
+<!-- recognition.html -->
+<!DOCTYPE html>
+<html lang="zh-Hant">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>認列</title>
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+  <style>
+    body {
+      font-family: 'Helvetica Neue', Helvetica, Arial, sans-serif;
+      background: linear-gradient(120deg, #fdfbfb 0%, #ebedee 100%);
+      color: #333;
+      padding: 2rem;
+    }
+    h2 {
+      color: #2c3e50;
+      font-weight: 600;
+      margin-top: 2rem;
+    }
+    form {
+      background-color: #fff;
+      padding: 2rem;
+      border-radius: 8px;
+      box-shadow: 0 4px 12px rgba(0,0,0,0.1);
+      max-width: 700px;
+      margin: auto;
+    }
+    label {
+      display: block;
+      margin: .75rem 0;
+      font-weight: 500;
+    }
+    button {
+      margin-top: 1.5rem;
+      padding: .75rem 2rem;
+      background-color: #3498db;
+      color: #fff;
+      border: none;
+      border-radius: 4px;
+      cursor: pointer;
+      font-size: 1rem;
+    }
+    button:hover {
+      background-color: #2980b9;
+    }
+  </style>
+</head>
+<body>
+  <form>
+  <label>選擇使用者</label>
+  <select name="user">
+    <option value="Eric" selected>Eric</option>
+    <option value="Willson">Willson</option>
+    <option value="Lyli">Lyli</option>
+  </select>
+  <h2>軟體</h2>
+  <label><input type="checkbox" name="software" value="Google Workspace" checked> Google Workspace</label>
+  <label><input type="checkbox" name="software" value="MS" checked> MS</label>
+  <label><input type="checkbox" name="software" value="Office 365" checked> Office 365</label>
+  <label><input type="checkbox" name="software" value="Visual Studio Pro" checked> Visual Studio Pro</label>
+  <label><input type="checkbox" name="software" value="Adobe"> Adobe</label>
+
+  <h2>硬體</h2>
+  <label><input type="checkbox" name="hardware" value="PC-22-001" checked> PC-22-001</label>
+  <label><input type="checkbox" name="hardware" value="MAC-18-001"> MAC-18-001</label>
+  <label><input type="checkbox" name="hardware" value="NB-16-001"> NB-16-001</label>
+  <label><input type="checkbox" name="hardware" value="NB-18-002"> NB-18-002</label>
+  <button type="submit">提交</button>
+  <script>
+    const userSelect = document.querySelector('select[name="user"]');
+    const softwareCheckboxes = document.querySelectorAll('input[name="software"]');
+    const hardwareCheckboxes = document.querySelectorAll('input[name="hardware"]');
+
+    const userSelections = {
+      "Eric": {
+        software: ["Google Workspace", "MS", "Office 365", "Visual Studio Pro"],
+        hardware: ["PC-22-001"]
+      },
+      "Willson": {
+        software: ["Adobe"],
+        hardware: ["NB-16-001", "NB-18-002"]
+      },
+      "Lyli": {
+        software: ["MS", "Adobe"],
+        hardware: ["MAC-18-001"]
+      }
+    };
+
+    function updateSelections(user) {
+      const selected = userSelections[user] || { software: [], hardware: [] };
+
+      softwareCheckboxes.forEach(cb => cb.checked = selected.software.includes(cb.value));
+      hardwareCheckboxes.forEach(cb => cb.checked = selected.hardware.includes(cb.value));
+    }
+
+    userSelect.addEventListener('change', function () {
+      updateSelections(this.value);
+    });
+
+    updateSelections(userSelect.value); // 預設啟動時套用
+  </script>
+</form>
 </body>
 </html>
+
+
 
 <!-- asset.html -->
 <!DOCTYPE html>
@@ -71,21 +235,18 @@
     <label>報廢日期</label><input type="date" name="disposalDate">
     <label>資產說明</label><textarea name="description"></textarea>
     <label>備註</label><textarea name="remark"></textarea>
-    <label>存放地點</label>
-    <select name="location">
-      <option value="辦公室">辦公室</option>
-      <option value="機房">機房</option>
-    </select>
-    <label>機密性</label><input type="number" name="confidentiality" min="1" max="5">
-    <label>完整性</label><input type="number" name="integrity" min="1" max="5">
     <label>狀態</label>
     <select name="status">
-      <option value="可用">可用</option>
+      <option value="正常">正常</option>
       <option value="報廢">報廢</option>
-      <option value="使用中">使用中</option>
     </select>
     
-    <button type="submit">儲存資產</button>
+    <label>認列狀態</label>
+    <select name="recognitionStatus">
+      <option value="已認列">已認列</option>
+      <option value="閒置中">閒置中</option>
+    </select>
+    <button type="submit">儲存硬體資產</button>
   </form>
 </body>
 </html>
@@ -110,90 +271,12 @@
     <label>描述</label><textarea name="description"></textarea>
     <label>數量</label><input type="number" name="quantity">
     
-    <label>軟體分配類別</label>
-    <select name="assignmentType">
-      <option value="所有人">所有人</option>
-      <option value="個人">個人</option>
-    </select>
-    <label>管理者</label>
-    <select name="admin">
-      <option value="Eric">Eric</option>
-      <option value="randolph">randolph</option>
-    </select>
+    
+    
     <button type="submit">儲存軟體資產</button>
   </form>
 </body>
 </html>
 
-<!-- assignment_hw.html -->
-<!DOCTYPE html>
-<html lang="zh-Hant">
-<head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>硬體資產分配</title>
-  <style>
-    body { font-family: Arial, sans-serif; padding: 20px; }
-    input, textarea { width: 100%; padding: 8px; margin: 5px 0; }
-    .form-section { border: 1px solid #ddd; padding: 20px; }
-  </style>
-</head>
-<body>
-  <h2>硬體資產分配</h2>
-  <form id="assignmentFormHW">
-    <label>資產名稱</label>
-    <select name="assetId" required>
-      <option value="PC-14-001">PC-14-001</option>
-      <option value="PC-15-001">PC-15-001</option>
-    </select>
-    <label>使用者 ID</label>
-    <select name="userId" required>
-      <option value="Eric">Eric</option>
-      <option value="Willson">Willson</option>
-      <option value="Lily">Lily</option>
-    </select>
-    <label>分配日期</label><input type="date" name="assignmentDate">
-    <label>歸還日期</label><input type="date" name="returnDate">
-    <label>分配說明</label><textarea name="assignmentNote"></textarea>
-    <label>歸還說明</label><textarea name="returnNote"></textarea>
-    <button type="submit">儲存分配紀錄</button>
-  </form>
-</body>
-</html>
 
-<!-- assignment_sw.html -->
-<!DOCTYPE html>
-<html lang="zh-Hant">
-<head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>軟體資產分配</title>
-  <style>
-    body { font-family: Arial, sans-serif; padding: 20px; }
-    input, textarea { width: 100%; padding: 8px; margin: 5px 0; }
-    .form-section { border: 1px solid #ddd; padding: 20px; }
-  </style>
-</head>
-<body>
-  <h2>軟體資產分配</h2>
-  <form id="assignmentFormSW">
-    <label>資產名稱</label>
-    <select name="assetId" required>
-      <option value="Axure">Axure</option>
-      <option value="NAS">NAS</option>
-      <option value="Adobe">Adobe</option>
-    </select>
-    <label>使用者 ID</label>
-    <select name="userId" required>
-      <option value="Eric">Eric</option>
-      <option value="Willson">Willson</option>
-      <option value="Lily">Lily</option>
-    </select>
-    <label>分配日期</label><input type="date" name="assignmentDate">
-    <label>歸還日期</label><input type="date" name="returnDate">
-    <label>分配說明</label><textarea name="assignmentNote"></textarea>
-    <label>歸還說明</label><textarea name="returnNote"></textarea>
-    <button type="submit">儲存分配紀錄</button>
-  </form>
-</body>
-</html>
+
