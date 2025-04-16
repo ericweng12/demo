@@ -72,7 +72,54 @@
     <li>認列</li>
 
 </body>
-<!-- recognition.html -->
+<!-- recognition-user-list.html -->
+<!DOCTYPE html>
+<html lang="zh-Hant">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>認列使用者列表</title>
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+  <style>
+    body {
+      font-family: 'Helvetica Neue', Helvetica, Arial, sans-serif;
+      background: #f8f9fa;
+      color: #333;
+      padding: 2rem;
+    }
+    .user-card {
+      background-color: #fff;
+      border-radius: 8px;
+      padding: 1.5rem;
+      margin-bottom: 1rem;
+      box-shadow: 0 2px 6px rgba(0,0,0,0.1);
+    }
+    h2 {
+      color: #2c3e50;
+    }
+    ul {
+      margin-bottom: 0;
+    }
+  </style>
+</head>
+<body>
+  <h1>認列使用者列表</h1>
+
+  <div class="user-card">
+    <input type="checkbox" class="form-check-input me-2">
+    <h2 class="d-inline">Eric</h2>
+    <p><strong>軟體認列：</strong>Google Workspace, MS, Office 365, Visual Studio Pro</p>
+    <p><strong>硬體認列：</strong>PC-22-001</p>
+  </div>
+
+  <div class="user-card">
+    <input type="checkbox" class="form-check-input me-2">
+    <h2 class="d-inline">Lyly</h2>
+    <p><strong>軟體認列：</strong>Google Workspace, MS, Office 365</p>
+    <p><strong>硬體認列：</strong>PC-24-001</p>
+  </div>
+
+
 <!DOCTYPE html>
 <html lang="zh-Hant">
 <head>
@@ -123,12 +170,7 @@
 <body>
   <h1>認列</h1>
   <form>
-  <label>選擇使用者</label>
-  <select name="user">
-    <option value="Eric" selected>Eric</option>
-    <option value="Willson">Willson</option>
-    <option value="Lyli">Lyli</option>
-  </select>
+  
   <h2>軟體</h2>
   <label><input type="checkbox" name="software" value="Google Workspace" checked> Google Workspace</label>
   <label><input type="checkbox" name="software" value="MS" checked> MS</label>
@@ -143,37 +185,10 @@
   <label><input type="checkbox" name="hardware" value="NB-18-002"> NB-18-002</label>
   <button type="submit">提交</button>
   <script>
-    const userSelect = document.querySelector('select[name="user"]');
-    const softwareCheckboxes = document.querySelectorAll('input[name="software"]');
-    const hardwareCheckboxes = document.querySelectorAll('input[name="hardware"]');
-
-    const userSelections = {
-      "Eric": {
-        software: ["Google Workspace", "MS", "Office 365", "Visual Studio Pro"],
-        hardware: ["PC-22-001"]
-      },
-      "Willson": {
-        software: ["Adobe"],
-        hardware: ["NB-16-001", "NB-18-002"]
-      },
-      "Lyli": {
-        software: ["MS", "Adobe"],
-        hardware: ["MAC-18-001"]
-      }
-    };
-
-    function updateSelections(user) {
-      const selected = userSelections[user] || { software: [], hardware: [] };
-
-      softwareCheckboxes.forEach(cb => cb.checked = selected.software.includes(cb.value));
-      hardwareCheckboxes.forEach(cb => cb.checked = selected.hardware.includes(cb.value));
-    }
-
-    userSelect.addEventListener('change', function () {
-      updateSelections(this.value);
+    
     });
 
-    updateSelections(userSelect.value); // 預設啟動時套用
+    
   </script>
 </form>
 </body>
